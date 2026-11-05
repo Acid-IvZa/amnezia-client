@@ -16,6 +16,10 @@ val qtTargetSdkVersion: String by gradleProperties
 val qtTargetAbiList: String by gradleProperties
 val outputBaseName: String by gradleProperties
 
+// Override the install identity without changing the native Kotlin/JNI namespace.
+val clientAndroidApplicationId: String =
+    providers.gradleProperty("clientAndroidApplicationId").orElse("org.amnezia.vpn").get()
+
 android {
     namespace = "org.amnezia.vpn"
 
@@ -37,7 +41,7 @@ android {
     val abiList = qtTargetAbiList.split(",")
 
     defaultConfig {
-        applicationId = "org.amnezia.vpn"
+        applicationId = clientAndroidApplicationId
         targetSdk = qtTargetSdkVersion.toInt()
 
         // keeps language resources for only the locales specified below
